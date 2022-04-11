@@ -1,10 +1,10 @@
-# （demo名称）
+# 酷应用示例demo
 
-> - （demo介绍）
-> - （demo结构）
+> - 此demo展示了酷应用的应用场景，包括群机器人、消息卡片、群应用入口等。
+> - 项目结构
+>   - backend：后端模块，springboot构建，接口功能包括：接收机器人回调、发送消息卡片等功能。
+>   - frontend：前端模块，react构建，场景功能包括：构建使用场景、公告、日程表单等。
 >
-
-
 
 ## 研发环境准备
 
@@ -30,7 +30,9 @@
 
 本demo使用接口相关权限：
 
-（列举该demo需要申请的权限）
+- 成员信息读权限
+- chat相关接口的管理权限
+- chat相关接口的读取权限
 
 ![image-20210706172027870](https://img.alicdn.com/imgextra/i3/O1CN016WCr6428wDdBhkWi6_!!6000000007996-2-tps-1358-571.png)
 
@@ -90,7 +92,7 @@ dingBoot-windows.bat  # windows版本
 ### 下载本项目至本地
 
 ```shell
-git clone (demo下载地址)
+git clone https://github.com/open-dingtalk/h5app-cool-app-demo.git
 ```
 
 ### 获取相应参数
@@ -130,10 +132,22 @@ npm run build
 - 移动端钉钉点击工作台，找到应用，进入应用
 
 ### 页面展示
-
-（页面截图/功能效果截图）
+启动首页 
+![](https://img.alicdn.com/imgextra/i1/O1CN018bbXk91zLjb7aDfTV_!!6000000006698-2-tps-510-507.png)
+公告页面
+![](https://img.alicdn.com/imgextra/i3/O1CN01yG4GLx1lxNWswkPUX_!!6000000004885-2-tps-502-289.png)
+日程页面
+![](https://img.alicdn.com/imgextra/i2/O1CN01hDcNMv1JEfcom6mZ2_!!6000000000997-2-tps-501-337.png)
+群互动卡片
+![](https://img.alicdn.com/imgextra/i2/O1CN01xTaEKL25pOwqRYIDt_!!6000000007575-2-tps-591-493.png)
+群入口应用
+![](https://img.alicdn.com/imgextra/i1/O1CN01AxV7kT1z8uVeoIwIh_!!6000000006670-2-tps-600-368.png)
 
 ### **参考文档**
 
 1. 获取企业内部应用access_token，文档链接：https://developers.dingtalk.com/document/app/obtain-orgapp-token
-2. （请完善文档）
+2. 轻量级互动卡片消息，文档链接：https://open.dingtalk.com/document/group/lightweight-access-document-of-interactive-cards
+3. 群机器人接收消息，文档链接：https://open.dingtalk.com/document/group/receive-message-2
+4. 设置消息推送，文档链接：https://open.dingtalk.com/document/org/configure-push-settings
+5. 配置群应用基本信息，文档链接：https://open.dingtalk.com/document/org/configure-the-basic-information-of-the-group-application
+5. 启用和使用群应用，文档链接：https://open.dingtalk.com/document/org/install-group-applications
