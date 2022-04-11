@@ -50,7 +50,7 @@ public class BizManager {
         OapiImChatScencegroupMessageSendV2Request req = new OapiImChatScencegroupMessageSendV2Request();
         req.setMsgTemplateId("inner_app_template_text");
         req.setIsAtAll(false);
-        req.setMsgParamMap("{\"content\":\"你好\"}");
+        req.setMsgParamMap("{\"content\":"+ content +"}");
         req.setTargetOpenConversationId(openConversationId);
         req.setRobotCode(robotCode);
         OapiImChatScencegroupMessageSendV2Response rsp = client.execute(req, accessToken);
@@ -72,9 +72,11 @@ public class BizManager {
         sendTemplateInteractiveCardHeaders.xAcsDingtalkAccessToken = tokenManager.getAccessToken(appConfig.getAppKey(), appConfig.getAppSecret());
         SendTemplateInteractiveCardRequest sendTemplateInteractiveCardRequest = new SendTemplateInteractiveCardRequest()
                 .setCardTemplateId(cardTemplateId)
-                .setOpenConversationId(appConfig.getConversationId())
+//                .setOpenConversationId(appConfig.getConversationId())
+                .setOpenConversationId("cidGRl5RG3oT95oaEE/eXWn3g==")
                 .setOutTrackId(UUID.randomUUID().toString())
-                .setRobotCode(appConfig.getRobotCode())
+//                .setRobotCode(appConfig.getRobotCode())
+                .setRobotCode("dingpeb8f3fqcrvzx5zw")
                 .setCallbackUrl(callbackUrl)
                 .setCardData(cardData)
                 .setSendOptions(null);

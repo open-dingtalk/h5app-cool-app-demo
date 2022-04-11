@@ -1,4 +1,5 @@
 import Announcement from '../components/Announcement';
+import Schedule from '../components/Schedule';
 import App from '../App';
 import React from 'react';
 import {Router,Route,Switch,Redirect} from 'react-router-dom';
@@ -15,6 +16,7 @@ class RouterConfig extends React.Component{
                     )}/>
                     <Route path='/App' component={App}/>
                     <Route path='/Announcement' component={Announcement}/>
+                    <Route path='/Schedule' component={Schedule}/>
                 </Switch>
             </Router>
         )

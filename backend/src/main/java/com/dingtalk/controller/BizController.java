@@ -36,10 +36,15 @@ public class BizController {
     }
 
     @RequestMapping("/syncSchedule")
-    public RpcServiceResult syncSchedule() {
-
-
-        return RpcServiceResult.getSuccessResult("hello world");
+    public RpcServiceResult syncSchedule(@RequestBody String paramStr) throws Exception {
+        System.out.println("paramStr " + paramStr);
+        JSONObject paramObject = JSON.parseObject(paramStr);
+        String title = paramObject.getString("title");
+        String content = paramObject.getString("date");
+        String address = paramObject.getString("address");
+        String cardData = conCardData(title, content);
+        bizManager.sendCard(cardData, null, "TuWenCard02");
+        return RpcServiceResult.getSuccessResult(null);
     }
 
     private String conCardData(String title, String content){

@@ -5,6 +5,7 @@ import "antd/dist/antd.min.css"
 import { Button, message, Input} from "antd"
 import * as dd from "dingtalk-jsapi"
 import Announcement from "./components/Announcement"
+import Schedule from "./components/Schedule"
 import {NavLink} from 'react-router-dom'
 
 
@@ -24,7 +25,6 @@ class App extends React.Component {
     }
 
     render() {
-        this.showPage();
         if (this.state.userId === '') {
             // 免登操作
             this.login();
@@ -48,54 +48,15 @@ class App extends React.Component {
                             </Button>
                         </p>
                         <p>
-                            <Button type="primary" onClick={() => this.setState({showType : 2})}>
-                                同步日程到群
+                            <Button type="primary">
+                                <NavLink to='/Schedule'>同步日程到群</NavLink>
                             </Button>
                         </p>
-                    </div>
-                )}
-                {this.state.showType === 1 && (
-                    <div>
-                        <Announcement
-                            onClick={(e) => this.pushAnnouncement(e)}
-                        />
-
                     </div>
                 )}
             </div>
         </div>
         );
-    }
-
-    backHome(){
-        this.setState({
-            showType : 0
-        })
-    }
-
-    writeAnnouncement(e){
-
-    }
-
-    pushAnnouncement(data){
-        const { title, content } = data
-        axios.post(this.state.domain + "/biz/pushAnnouncement", {
-            title:title,
-            content:content
-        }).then(res => {
-
-        }).catch(error => {
-            alert("pushAnnouncement err, " + JSON.stringify(error))
-        })
-    }
-
-    syncSchedule(){
-        axios.post(this.state.domain + "/biz/syncSchedule")
-            .then(res => {
-
-            }).catch(error => {
-            alert("pushAnnouncement err, " + JSON.stringify(error))
-        })
     }
 
     //登录-获取corpId
@@ -145,31 +106,6 @@ class App extends React.Component {
         });
     }
 
-    showPage(){
-        // document.getElementById("root").addEventListener((ele)=>{
-        //     console.log(ele.target,'======')
-        // })
-        // let pageType = getUrlSearchParam("pageType");
-        // if(pageType){
-        //     if(pageType !== this.state.showType){
-        //         this.setState({
-        //             showType : pageType
-        //         })
-        //     }
-        // }
-    }
-
-}
-
-function getUrlSearchParam(key) {
-    var search = window.location.search
-    var arr = !search ? [] : search.substr(1).split("&")
-    var param = {}
-    for (var i = 0, l = arr.length; i < l; i++) {
-        var kv = arr[i].split("=")
-        param[kv[0]] = kv[1]
-    }
-    return key ? param[key] || "" : param
 }
 
 export default App;

@@ -27,4 +27,14 @@ public class PageIndexController {
     public String announcement() {
         return "index";
     }
+
+    /**
+     * 日程页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/Schedule", method = RequestMethod.GET)
+    public String schedule() {
+        return "index";
+    }
 }
