@@ -36,6 +36,15 @@
 
 ![image-20210706172027870](https://img.alicdn.com/imgextra/i3/O1CN016WCr6428wDdBhkWi6_!!6000000007996-2-tps-1358-571.png)
 
+酷应用相关配置：（必要步骤）
+1. 配置群机器人：https://open.dingtalk.com/document/org/configure-push-settings
+   - ![](https://img.alicdn.com/imgextra/i2/O1CN01MG0GBf1fbxJHpo96o_!!6000000004026-2-tps-988-593.png)
+2. 配置群应用和群入口：https://open.dingtalk.com/document/org/configure-the-basic-information-of-the-group-application
+   - ![](https://img.alicdn.com/imgextra/i4/O1CN01DXlDeL1ZBx81BluOv_!!6000000003157-2-tps-1013-610.png)
+   - ![](https://img.alicdn.com/imgextra/i3/O1CN01Lz3wjC1aFRlgZo0fW_!!6000000003300-2-tps-1005-536.png)
+3. 启动群应用：https://open.dingtalk.com/document/org/install-group-applications
+
+
 ## 脚本启动（推荐）
 
 ### 脚本说明
