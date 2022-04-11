@@ -13,27 +13,25 @@ const Schedule = (props) => {
     const [pickerV, setPickerV] = useState(false);
     const initValue = {
         title: "日程主题",
-        date: "日程时间",
+        scheduleTime: new Date(),
         address: "日程地点",
     }
 
     const onSubmit = (data) => {
         const formData ={
             ...data,
-            date: moment(data.date).format("YYYY-MM-DD HH:mm:ss")
+            scheduleTime: moment(data.scheduleTime).format("YYYY-MM-DD HH:mm:ss")
         }
-        // props.onClick(formData)
         syncSchedule(formData)
     }
 
     const syncSchedule = (data) => {
-        const { title, date, address} = data
-        axios.post(this.state.domain + "/biz/syncSchedule", {
+        const { title, scheduleTime, address} = data
+        axios.post("/biz/syncSchedule", {
             title:title,
-            date:date,
+            date:scheduleTime,
             address:address
         }).then(res => {
-
         }).catch(error => {
             alert("syncSchedule err, " + JSON.stringify(error))
         })
@@ -49,38 +47,38 @@ const Schedule = (props) => {
                 钉钉模板
             </div>
             <div className="App">
-                <h4 className="title">酷应用示例—同步日程到群</h4>
+                <h3 className="title">酷应用示例—同步日程到群</h3>
                 <Form form={form} onFinish={onSubmit} initialValues={initValue}>
                     <Form.Item label="日程主题" name="title">
                         <Input placeholder="请输入日程主题" />
                     </Form.Item>
-                    <Form.Item label="日程地点" name="content">
+                    <Form.Item label="日程地点" name="address">
                         <Input placeholder="请输入日程地点" />
                     </Form.Item>
-                    {/*<Form.Item label="日程时间" name="date">*/}
-                    {/*    <DatePicker*/}
-                    {/*        visible={pickerV}*/}
-                    {/*        onClose={() => {*/}
-                    {/*            setPickerV(false)*/}
-                    {/*        }}*/}
-                    {/*        min={new Date()}*/}
-                    {/*        precision="second"*/}
-                    {/*        onConfirm={(val, s) => {*/}
-                    {/*            form.setFieldsValue({*/}
-                    {/*                date: val,*/}
-                    {/*            })*/}
-                    {/*        }}*/}
-                    {/*    >*/}
-                    {/*    {(value) => (*/}
-                    {/*        <div style={{ textAlign: "left" }}>*/}
-                    {/*            <Button onClick={() => setPickerV(true)} type="primary">*/}
-                    {/*                选择日程时间*/}
-                    {/*            </Button>{" "}*/}
-                    {/*            {moment(value).format("YYYY-MM-DD HH:mm:ss")}*/}
-                    {/*        </div>*/}
-                    {/*    )}*/}
-                    {/*    </DatePicker>*/}
-                    {/*</Form.Item>*/}
+                    <Form.Item label="日程时间" name="scheduleTime">
+                        <DatePicker
+                            visible={pickerV}
+                            onClose={() => {
+                                setPickerV(false)
+                            }}
+                            min={new Date()}
+                            precision="second"
+                            onConfirm={(val, s) => {
+                                form.setFieldsValue({
+                                    scheduleTime: val,
+                                })
+                            }}
+                        >
+                        {(value) => (
+                            <div style={{ textAlign: "left" }}>
+                                <Button type="primary" onClick={() => setPickerV(true)} >
+                                    选择时间
+                                </Button>{" "}
+                                {moment(value).format("YYYY-MM-DD HH:mm:ss")}
+                            </div>
+                        )}
+                        </DatePicker>
+                    </Form.Item>
                     <Button htmlType="submit" type="primary">
                         提交
                     </Button>

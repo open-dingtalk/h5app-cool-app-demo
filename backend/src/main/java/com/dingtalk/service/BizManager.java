@@ -72,11 +72,9 @@ public class BizManager {
         sendTemplateInteractiveCardHeaders.xAcsDingtalkAccessToken = tokenManager.getAccessToken(appConfig.getAppKey(), appConfig.getAppSecret());
         SendTemplateInteractiveCardRequest sendTemplateInteractiveCardRequest = new SendTemplateInteractiveCardRequest()
                 .setCardTemplateId(cardTemplateId)
-//                .setOpenConversationId(appConfig.getConversationId())
-                .setOpenConversationId("cidGRl5RG3oT95oaEE/eXWn3g==")
+                .setOpenConversationId(appConfig.getConversationId())
                 .setOutTrackId(UUID.randomUUID().toString())
-//                .setRobotCode(appConfig.getRobotCode())
-                .setRobotCode("dingpeb8f3fqcrvzx5zw")
+                .setRobotCode(appConfig.getRobotCode())
                 .setCallbackUrl(callbackUrl)
                 .setCardData(cardData)
                 .setSendOptions(null);
