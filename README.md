@@ -132,14 +132,19 @@ npm run build
 - 移动端钉钉点击工作台，找到应用，进入应用
 
 ### 页面展示
-启动首页 
+
+启动首页
 ![](https://img.alicdn.com/imgextra/i1/O1CN018bbXk91zLjb7aDfTV_!!6000000006698-2-tps-510-507.png)
+
 公告页面
 ![](https://img.alicdn.com/imgextra/i3/O1CN01yG4GLx1lxNWswkPUX_!!6000000004885-2-tps-502-289.png)
+
 日程页面
 ![](https://img.alicdn.com/imgextra/i2/O1CN01hDcNMv1JEfcom6mZ2_!!6000000000997-2-tps-501-337.png)
+
 群互动卡片
 ![](https://img.alicdn.com/imgextra/i2/O1CN01xTaEKL25pOwqRYIDt_!!6000000007575-2-tps-591-493.png)
+
 群入口应用
 ![](https://img.alicdn.com/imgextra/i1/O1CN01AxV7kT1z8uVeoIwIh_!!6000000006670-2-tps-600-368.png)
 
