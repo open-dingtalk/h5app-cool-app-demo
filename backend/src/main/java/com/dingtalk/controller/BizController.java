@@ -22,7 +22,7 @@ import java.util.Map;
 public class BizController {
 
     @Autowired
-    BizManager bizManager;
+    private BizManager bizManager;
 
     @RequestMapping("/pushAnnouncement")
     public RpcServiceResult pushAnnouncement(@RequestBody String paramStr) throws Exception {

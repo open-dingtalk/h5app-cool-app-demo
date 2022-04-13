@@ -13,8 +13,10 @@ import com.aliyun.dingboot.common.token.ITokenManager;
 import com.aliyun.dingtalkim_1_0.Client;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
+import com.dingtalk.api.request.OapiGetJsapiTicketRequest;
 import com.dingtalk.api.request.OapiImChatScencegroupMessageSendV2Request;
 import com.dingtalk.api.request.OapiV2UserGetuserinfoRequest;
+import com.dingtalk.api.response.OapiGetJsapiTicketResponse;
 import com.dingtalk.api.response.OapiImChatScencegroupMessageSendV2Response;
 import com.dingtalk.api.response.OapiV2UserGetuserinfoResponse;
 import com.dingtalk.config.AppConfig;
@@ -103,6 +105,25 @@ public class BizManager {
         config.protocol = "https";
         config.regionId = "central";
         return new Client(config);
+    }
+
+    /**
+     * 获取jsapi_ticket
+     *
+     * @return
+     */
+    public String getJsapiTicket() throws ApiException {
+        String accessToken = tokenManager.getAccessToken(appConfig.getAppKey(), appConfig.getAppSecret());
+
+        DingTalkClient client = new DefaultDingTalkClient(UrlConstant.GET_JSAPI_TICKET);
+        OapiGetJsapiTicketRequest req = new OapiGetJsapiTicketRequest();
+        req.setHttpMethod("GET");
+        OapiGetJsapiTicketResponse rsp = client.execute(req, accessToken);
+        System.out.println(rsp.getBody());
+        if(!rsp.isSuccess()){
+            System.out.println("getJsapiTicket err " + rsp.getErrmsg());
+        }
+        return rsp.getTicket();
     }
 
 

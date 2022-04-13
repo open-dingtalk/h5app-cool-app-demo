@@ -35,7 +35,7 @@ public class CoolAppBotMsgController {
     private AppConfig appConfig;
 
     @Autowired
-    BizManager bizManager;
+    private BizManager bizManager;
 
     /**
      * 推送的消息

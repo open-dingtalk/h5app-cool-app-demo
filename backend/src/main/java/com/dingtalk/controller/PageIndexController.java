@@ -15,26 +15,7 @@ public class PageIndexController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
-        return "index";
-    }
-
-    /**
-     * 公告页
-     *
-     * @return
-     */
-    @RequestMapping(value = "/Announcement", method = RequestMethod.GET)
-    public String announcement() {
-        return "index";
-    }
-
-    /**
-     * 日程页
-     *
-     * @return
-     */
-    @RequestMapping(value = "/Schedule", method = RequestMethod.GET)
-    public String schedule() {
+        System.out.println("page app");
         return "index";
     }
 }

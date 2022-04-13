@@ -22,4 +22,8 @@ public class UrlConstant {
      * 发送消息 url
      */
     public static final String SEND_MSG_URL = "https://oapi.dingtalk.com/topapi/im/chat/scencegroup/message/send_v2";
+    /**
+     * 获取jsapi_ticket url
+     */
+    public static final String GET_JSAPI_TICKET = "https://oapi.dingtalk.com/get_jsapi_ticket";
 }

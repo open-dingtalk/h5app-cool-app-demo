@@ -1,4 +1,5 @@
-import {Form, Input, Button} from "antd"
+import react, { useEffect, useState } from "react"
+import {Form, Input, Button, message} from "antd"
 import React from "react"
 import {NavLink} from 'react-router-dom'
 import '../App.css'
@@ -7,18 +8,35 @@ import axios from "axios";
 
 const Announcement = (props) => {
     const [form] = Form.useForm()
+    const [cid, setCid] = useState('');
     const initValue = {
         title: "公告标题",
         content: "公告内容",
     }
 
     const onSubmit = (data) => {
+        data.cid = cid;
         console.log("======= pushAnnouncement =======")
         axios.post( "/biz/pushAnnouncement", data).then(res => {
         }).catch(error => {
             alert("pushAnnouncement err, " + JSON.stringify(error))
         })
     }
+
+    useEffect(()=>{
+        let hash = window.location.hash
+        if(hash){
+            let indexOf = hash.indexOf("/");
+            let str = hash.substr(indexOf + 1);
+            let index = str.indexOf("/");
+            if(index > 0){
+                let cid = str.substr(index + 1);
+                message.info("cid : " + cid);
+                setCid(cid);
+            }
+        }
+    },[])
+
 
     return (
         <div className="content">
