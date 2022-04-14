@@ -54,16 +54,18 @@ const Schedule = (props) => {
     const pickerFn = (departments = [], users = []) => {
         let str = "";
         if(departments.length > 0) {
-            str += '部门：' + departments.map((item, i) => (
-                item.name + ','
-            ))
-            str = str.substr(0, str.length - 1) + '\n';
+            let deArr = [];
+            departments.map((item, i) => {
+                deArr.push(item.name);
+            })
+            str += '部门：' + deArr.join(",") + '\n';
         }
         if(users.length > 0) {
-            str += '人员：' + users.map((item, i) => (
-                item.name + ','
-            ))
-            str = str.substr(0, str.length - 1)
+            let usArr = [];
+            users.map((item, i) => {
+                usArr.push(item.name);
+            })
+            str += '人员：' + usArr.join(",");
         }
         form.setFieldsValue({
             users:str
