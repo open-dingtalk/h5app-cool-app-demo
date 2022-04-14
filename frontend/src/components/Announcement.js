@@ -12,16 +12,16 @@ const Announcement = (props) => {
     const [cid, setCid] = useState('');
     const [cidOption, setCidOption] = useState('');
     const [conArr, setConArr] = useState([]);
-    const [img, setImg] = useState('https://gw.alicdn.com/imgextra/i2/O1CN015ODkeA1wO4lFrPogt_!!6000000006297-2-tps-572-844.png');
+    const [img, setImg] = useState('https://img.alicdn.com/imgextra/i2/O1CN01RVPdut26Fxv9aZjvf_!!6000000007633-2-tps-220-324.png');
     const domain = window.location.protocol + "//" + window.location.hostname;
     const initValue = {
         title: "公告",
         content: "大家按照这个格式填写下，每周我会做一个统计和公布哈，和大家同步下我们的进展",
         imgArr: [
-            "https://gw.alicdn.com/imgextra/i1/O1CN01RX9taL1bnAWsG3tWy_!!6000000003509-2-tps-572-844.png",
-            "https://gw.alicdn.com/imgextra/i2/O1CN015ODkeA1wO4lFrPogt_!!6000000006297-2-tps-572-844.png",
-            "https://gw.alicdn.com/imgextra/i2/O1CN01Eq7BfJ1D4hIJ2L0RS_!!6000000000163-2-tps-572-844.png",
-            "https://gw.alicdn.com/imgextra/i1/O1CN010iPftK1s0wI0kMHPI_!!6000000005705-2-tps-572-844.png"
+            "https://img.alicdn.com/imgextra/i1/O1CN01AFoPW21aVw1gZfaoX_!!6000000003336-2-tps-220-324.png",
+            "https://img.alicdn.com/imgextra/i2/O1CN01RVPdut26Fxv9aZjvf_!!6000000007633-2-tps-220-324.png",
+            "https://img.alicdn.com/imgextra/i3/O1CN019wBXsv1wyG4CA2Tcm_!!6000000006376-2-tps-220-324.png",
+            "https://img.alicdn.com/imgextra/i2/O1CN01aL4qn21q0MZjXf9jS_!!6000000005433-2-tps-220-324.png"
         ]
     }
 

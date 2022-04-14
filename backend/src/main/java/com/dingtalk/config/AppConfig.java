@@ -5,16 +5,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Data
 @Configuration
 public class AppConfig {
 
-    SimpleDateFormat format = new SimpleDateFormat("HH点mm分");
+    SimpleDateFormat format = new SimpleDateFormat("HH点mm分，");
 
     @Value("${app.app_key}")
     private String appKey;
@@ -30,7 +27,7 @@ public class AppConfig {
 
     private Map<String, String> conversationIdMap = new HashMap<>();
 
-    private Map<String, String> logMap = new HashMap<>();
+    private List<String> logList = new ArrayList<>();
 
     private String robotCode;
 
@@ -40,9 +37,8 @@ public class AppConfig {
         conversationIdMap.put(conversationId, conversationTitle);
     }
 
-    public void putLog(long timeMs, String logContent) {
-        Date date = new Date(timeMs);
-        String time = this.format.format(date);
-        logMap.put(time, logContent);
+    public void addLog(long timeMs, String logContent) {
+        String time = this.format.format(new Date(timeMs));
+        logList.add(time + logContent);
     }
 }

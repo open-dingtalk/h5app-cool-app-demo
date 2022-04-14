@@ -67,7 +67,7 @@ public class CoolAppBotMsgController {
                 String conversationTitle = paramJSONObject.getString("conversationTitle");
                 String robotCode = paramJSONObject.getString("robotCode");
                 String senderNick = paramJSONObject.getString("senderNick");
-                appConfig.putLog(System.currentTimeMillis(), senderNick + "@了机器人");
+                appConfig.addLog(System.currentTimeMillis(), senderNick + "@了机器人");
                 appConfig.putConversation(conversationId, conversationTitle);
                 appConfig.setRobotCode(robotCode);
                 // 接收消息内容
@@ -110,12 +110,12 @@ public class CoolAppBotMsgController {
             String userId = paramObject.getString("userId");
             OapiV2UserGetResponse.UserGetResponse user = bizManager.getUsernameByUserid(userId);
             String log = "";
-            if("收到".equals(text)) {
+            if("收到".equals(zhHans)) {
                 log = user.getName() + zhHans + "了公告";
             } else {
                 log = user.getName() + zhHans + "了日程";
             }
-            appConfig.putLog(System.currentTimeMillis(), log);
+            appConfig.addLog(System.currentTimeMillis(), log);
         }
         return null;
     }

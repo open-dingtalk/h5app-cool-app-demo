@@ -87,7 +87,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/getLog", method = RequestMethod.GET)
-    public Map<String, String> getLog() {
-        return appConfig.getLogMap();
+    public List<String> getLog() {
+        return appConfig.getLogList();
     }
 }

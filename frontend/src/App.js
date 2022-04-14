@@ -42,23 +42,15 @@ class App extends React.Component {
             axios.get(this.state.domain + "/getLog")
                 .then(res => {
                     if (res.data) {
-                        const log = res.data;
-                        let arr = [];
-                        Object.keys(log).map((item, i) => {
-                            let s = item + "，" + log[item];
-                            arr.push(s);
-                        })
-                        // if(this.state.log.constants(arr)){
-                        //
-                        // }
+                        const logList = res.data;
                         this.setState({
-                            log: arr
+                            log: logList
                         });
                     }
                 }).catch(error => {
                 alert("getLog err, " + JSON.stringify(error))
             })
-        },3000)
+        },10000)
     }
 
     render() {

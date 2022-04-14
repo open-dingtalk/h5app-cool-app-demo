@@ -112,7 +112,8 @@ public class BizController {
         JSONObject contentText = contentObject.getJSONObject("text");
         contentText.put("zh_Hans", content);
         JSONObject contentObject2 = contents.getJSONObject(1);
-        contentObject2.put("image", img);
+//        contentObject2.put("image", img);
+        contentObject2.put("image", "@lALPDeREVttTpCrNA6rNA6o");
         System.out.println(templateObject.toJSONString());
         return templateObject.toJSONString();
     }
