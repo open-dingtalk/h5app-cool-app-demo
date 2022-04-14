@@ -20,17 +20,17 @@ const Schedule = (props) => {
     const [cid, setCid] = useState('');
     const [cidOption, setCidOption] = useState('');
     const [conArr, setConArr] = useState([]);
-
+    const domain = window.location.protocol + "//" + window.location.hostname;
     const initValue = {
-        title: "日程主题",
+        title: "设计中心周会",
         scheduleTime: new Date(),
-        address: "日程地点",
+        address: "湖畔 大梅沙",
     }
 
     const onSubmit = (data) => {
         const formData ={
             ...data,
-            scheduleTime: moment(data.scheduleTime).format("YYYY-MM-DD HH:mm:ss")
+            scheduleTime: moment(data.scheduleTime).format("MM月DD日 HH:mm")
         }
         syncSchedule(formData)
     }
@@ -44,7 +44,8 @@ const Schedule = (props) => {
             address:address,
             users:users,
             departments:departments,
-            cid:id
+            cid:id,
+            domain:domain
         }).then(res => {
         }).catch(error => {
             alert("syncSchedule err, " + JSON.stringify(error))

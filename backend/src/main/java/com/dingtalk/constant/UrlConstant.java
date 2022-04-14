@@ -26,4 +26,8 @@ public class UrlConstant {
      * 获取jsapi_ticket url
      */
     public static final String GET_JSAPI_TICKET = "https://oapi.dingtalk.com/get_jsapi_ticket";
+    /**
+     * 注册卡片回调 url
+     */
+    public static final String CARD_CALLBACK_REGISTER = "https://oapi.dingtalk.com/topapi/im/chat/scencegroup/interactivecard/callback/register";
 }

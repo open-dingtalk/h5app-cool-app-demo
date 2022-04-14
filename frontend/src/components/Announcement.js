@@ -13,10 +13,10 @@ const Announcement = (props) => {
     const [cidOption, setCidOption] = useState('');
     const [conArr, setConArr] = useState([]);
     const [img, setImg] = useState('https://gw.alicdn.com/imgextra/i2/O1CN015ODkeA1wO4lFrPogt_!!6000000006297-2-tps-572-844.png');
-
+    const domain = window.location.protocol + "//" + window.location.hostname;
     const initValue = {
-        title: "公告标题",
-        content: "公告内容",
+        title: "公告",
+        content: "大家按照这个格式填写下，每周我会做一个统计和公布哈，和大家同步下我们的进展",
         imgArr: [
             "https://gw.alicdn.com/imgextra/i1/O1CN01RX9taL1bnAWsG3tWy_!!6000000003509-2-tps-572-844.png",
             "https://gw.alicdn.com/imgextra/i2/O1CN015ODkeA1wO4lFrPogt_!!6000000006297-2-tps-572-844.png",
@@ -28,6 +28,7 @@ const Announcement = (props) => {
     const onSubmit = (data) => {
         data.cid = cid !== '' ? cid : cidOption;
         data.img = img;
+        data.domain = domain;
         console.log("======= pushAnnouncement =======")
         axios.post( "/biz/pushAnnouncement", data).then(res => {
         }).catch(error => {
@@ -43,7 +44,6 @@ const Announcement = (props) => {
     const selectImg = (value) => {
         const i = parseInt(value)
         const img = initValue.imgArr[i];
-        message.info("img: " + img);
         setImg(img);
     }
 

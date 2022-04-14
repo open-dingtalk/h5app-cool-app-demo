@@ -13,12 +13,8 @@ import com.aliyun.dingboot.common.token.ITokenManager;
 import com.aliyun.dingtalkim_1_0.Client;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.DingTalkClient;
-import com.dingtalk.api.request.OapiGetJsapiTicketRequest;
-import com.dingtalk.api.request.OapiImChatScencegroupMessageSendV2Request;
-import com.dingtalk.api.request.OapiV2UserGetuserinfoRequest;
-import com.dingtalk.api.response.OapiGetJsapiTicketResponse;
-import com.dingtalk.api.response.OapiImChatScencegroupMessageSendV2Response;
-import com.dingtalk.api.response.OapiV2UserGetuserinfoResponse;
+import com.dingtalk.api.request.*;
+import com.dingtalk.api.response.*;
 import com.dingtalk.config.AppConfig;
 import com.dingtalk.constant.UrlConstant;
 import com.taobao.api.ApiException;
@@ -66,12 +62,14 @@ public class BizManager {
      * bot发送互动卡片消息
      * @return
      */
-    public void sendCard(String cardData, String callbackUrl, String cardTemplateId, String conversationId) throws Exception {
+    public void sendCard(String cardData, String callbackUrl, String cardTemplateId, String conversationId, String atUserListJson) throws Exception {
         // 根据content的内容进行不同的回复，此处省略
         Client client = createClient();
         SendTemplateInteractiveCardHeaders sendTemplateInteractiveCardHeaders = new SendTemplateInteractiveCardHeaders();
 
         sendTemplateInteractiveCardHeaders.xAcsDingtalkAccessToken = tokenManager.getAccessToken(appConfig.getAppKey(), appConfig.getAppSecret());
+        SendTemplateInteractiveCardRequest.SendTemplateInteractiveCardRequestSendOptions sendOptions = new SendTemplateInteractiveCardRequest.SendTemplateInteractiveCardRequestSendOptions();
+        sendOptions.setAtUserListJson(atUserListJson);
         SendTemplateInteractiveCardRequest sendTemplateInteractiveCardRequest = new SendTemplateInteractiveCardRequest()
                 .setCardTemplateId(cardTemplateId)
                 .setOpenConversationId(conversationId)
@@ -79,8 +77,9 @@ public class BizManager {
                 .setRobotCode(appConfig.getRobotCode())
                 .setCallbackUrl(callbackUrl)
                 .setCardData(cardData)
-                .setSendOptions(null);
+                .setSendOptions(sendOptions);
         try {
+            System.out.println(JSON.toJSONString(sendTemplateInteractiveCardRequest));
             SendTemplateInteractiveCardResponse cardResponse = client.sendTemplateInteractiveCardWithOptions(sendTemplateInteractiveCardRequest, sendTemplateInteractiveCardHeaders, new RuntimeOptions());
             System.out.println("cardResponse: " + JSON.toJSONString(cardResponse));
         } catch (TeaException err) {
@@ -122,9 +121,45 @@ public class BizManager {
         System.out.println(rsp.getBody());
         if(!rsp.isSuccess()){
             System.out.println("getJsapiTicket err " + rsp.getErrmsg());
+            return null;
         }
         return rsp.getTicket();
     }
 
+    /**
+     * 注册卡片回调
+     *
+     * @return
+     */
+    public String cardRegister(String domain) throws ApiException {
+        String accessToken = tokenManager.getAccessToken(appConfig.getAppKey(), appConfig.getAppSecret());
 
+        DingTalkClient client = new DefaultDingTalkClient(UrlConstant.CARD_CALLBACK_REGISTER);
+        OapiImChatScencegroupInteractivecardCallbackRegisterRequest req = new OapiImChatScencegroupInteractivecardCallbackRegisterRequest();
+        req.setCallbackUrl(domain + "/coolappbot/card_callback");
+        req.setApiSecret("123456");
+        OapiImChatScencegroupInteractivecardCallbackRegisterResponse rsp = client.execute(req, accessToken);
+        System.out.println(rsp.getBody());
+        if(!rsp.isSuccess()){
+            System.out.println("cardRegister err " + rsp.getErrmsg());
+            return null;
+        }
+        appConfig.setCardRegister(true);
+        return rsp.getBody();
+    }
+
+    public OapiV2UserGetResponse.UserGetResponse getUsernameByUserid(String userId) throws ApiException {
+        String accessToken = tokenManager.getAccessToken(appConfig.getAppKey(), appConfig.getAppSecret());
+
+        DingTalkClient client = new DefaultDingTalkClient(UrlConstant.USER_GET_URL);
+        OapiV2UserGetRequest req = new OapiV2UserGetRequest();
+        req.setUserid(userId);
+        req.setLanguage("zh_CN");
+        OapiV2UserGetResponse oapiV2UserGetResponse = (OapiV2UserGetResponse)client.execute(req, accessToken);
+        if (oapiV2UserGetResponse.isSuccess()) {
+            return oapiV2UserGetResponse.getResult();
+        } else {
+            throw new ApiException(oapiV2UserGetResponse.getErrorCode(), oapiV2UserGetResponse.getErrmsg());
+        }
+    }
 }

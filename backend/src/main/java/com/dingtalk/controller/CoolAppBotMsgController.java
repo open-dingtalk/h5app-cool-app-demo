@@ -2,6 +2,7 @@ package com.dingtalk.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.dingtalk.api.response.OapiV2UserGetResponse;
 import com.dingtalk.config.AppConfig;
 import com.dingtalk.model.RpcServiceResult;
 import com.dingtalk.service.BizManager;
@@ -65,6 +66,8 @@ public class CoolAppBotMsgController {
                 String conversationId = paramJSONObject.getString("conversationId");
                 String conversationTitle = paramJSONObject.getString("conversationTitle");
                 String robotCode = paramJSONObject.getString("robotCode");
+                String senderNick = paramJSONObject.getString("senderNick");
+                appConfig.putLog(System.currentTimeMillis(), senderNick + "@了机器人");
                 appConfig.putConversation(conversationId, conversationTitle);
                 appConfig.setRobotCode(robotCode);
                 // 接收消息内容
@@ -87,4 +90,34 @@ public class CoolAppBotMsgController {
         }
         return null;
     }
+
+    /**
+     * 卡片回调
+     * @param request
+     * @return
+     */
+    @RequestMapping("/card_callback")
+    public String cardCallback(HttpServletRequest request, @RequestBody String paramStr) throws ApiException {
+        System.out.println("-----card_callback----- " + paramStr);
+        JSONObject paramObject = JSON.parseObject(paramStr);
+        String contentStr = paramObject.getString("content");
+        System.out.println("contentStr: " + contentStr);
+        JSONObject content = JSONObject.parseObject(contentStr);
+        String status = content.getString("status");
+        if(!"DISABLED".equals(status)){
+            JSONObject text = content.getJSONObject("text");
+            String zhHans = text.getString("zh_Hans");
+            String userId = paramObject.getString("userId");
+            OapiV2UserGetResponse.UserGetResponse user = bizManager.getUsernameByUserid(userId);
+            String log = "";
+            if("收到".equals(text)) {
+                log = user.getName() + zhHans + "了公告";
+            } else {
+                log = user.getName() + zhHans + "了日程";
+            }
+            appConfig.putLog(System.currentTimeMillis(), log);
+        }
+        return null;
+    }
+
 }

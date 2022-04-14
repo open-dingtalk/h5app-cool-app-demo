@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import './App.css'
 import "antd/dist/antd.min.css"
-import { Button, message, Carousel} from "antd"
+import { Button, message, Carousel, Timeline} from "antd"
 import * as dd from "dingtalk-jsapi"
 import Announcement from "./components/Announcement"
 import Schedule from "./components/Schedule"
@@ -19,7 +19,9 @@ class App extends React.Component {
             authCode: '',
             userId: '',
             userName: '',
-            showType: 0
+            showType: 0,
+            log:[]
+
         }
     }
 
@@ -35,7 +37,32 @@ class App extends React.Component {
         return contentStyle;
     }
 
+    getLog() {
+        setInterval(async ()=>{
+            axios.get(this.state.domain + "/getLog")
+                .then(res => {
+                    if (res.data) {
+                        const log = res.data;
+                        let arr = [];
+                        Object.keys(log).map((item, i) => {
+                            let s = item + "，" + log[item];
+                            arr.push(s);
+                        })
+                        // if(this.state.log.constants(arr)){
+                        //
+                        // }
+                        this.setState({
+                            log: arr
+                        });
+                    }
+                }).catch(error => {
+                alert("getLog err, " + JSON.stringify(error))
+            })
+        },3000)
+    }
+
     render() {
+        this.getLog();
         if (this.state.userId === '') {
             // 免登操作
             this.login();
@@ -114,6 +141,21 @@ class App extends React.Component {
                         <Button type="primary">
                             <NavLink to='/Schedule'>同步日程到群</NavLink>
                         </Button>
+                    </p>
+                </div>
+                <br/><br/>
+                <div>
+                    <h2>酷应用动作</h2>
+                    <p>
+                        {this.state.log.length > 0 && (
+                            <div>
+                                <Timeline>
+                                    {this.state.log.map((item, i) => (
+                                        <Timeline.Item key={i}>{item}</Timeline.Item>
+                                    ))}
+                                </Timeline>
+                            </div>
+                        )}
                     </p>
                 </div>
             </div>

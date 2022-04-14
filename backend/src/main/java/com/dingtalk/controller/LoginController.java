@@ -1,5 +1,6 @@
 package com.dingtalk.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.dingtalk.api.response.OapiV2UserGetResponse;
 import com.dingtalk.config.AppConfig;
 import com.dingtalk.model.RpcServiceResult;
@@ -79,5 +80,14 @@ public class LoginController {
     @RequestMapping(value = "/getConversationIdMap", method = RequestMethod.GET)
     public Map<String, String> getConversationIdMap() {
         return appConfig.getConversationIdMap();
+    }
+
+    /**
+     * 获取log
+     * @return
+     */
+    @RequestMapping(value = "/getLog", method = RequestMethod.GET)
+    public Map<String, String> getLog() {
+        return appConfig.getLogMap();
     }
 }
