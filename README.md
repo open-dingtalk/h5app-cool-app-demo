@@ -36,6 +36,15 @@
 
 ![image-20210706172027870](https://img.alicdn.com/imgextra/i3/O1CN016WCr6428wDdBhkWi6_!!6000000007996-2-tps-1358-571.png)
 
+酷应用相关配置：（必要步骤）
+1. 配置群机器人：https://open.dingtalk.com/document/org/configure-push-settings
+   - ![](https://img.alicdn.com/imgextra/i2/O1CN01MG0GBf1fbxJHpo96o_!!6000000004026-2-tps-988-593.png)
+2. 配置群应用和群入口：https://open.dingtalk.com/document/org/configure-the-basic-information-of-the-group-application
+   - ![](https://img.alicdn.com/imgextra/i4/O1CN01DXlDeL1ZBx81BluOv_!!6000000003157-2-tps-1013-610.png)
+   - ![](https://img.alicdn.com/imgextra/i3/O1CN01Lz3wjC1aFRlgZo0fW_!!6000000003300-2-tps-1005-536.png)
+3. 启动群应用：https://open.dingtalk.com/document/org/install-group-applications
+
+
 ## 脚本启动（推荐）
 
 ### 脚本说明
@@ -134,18 +143,23 @@ npm run build
 ### 页面展示
 
 启动首页
+
 ![](https://img.alicdn.com/imgextra/i1/O1CN018bbXk91zLjb7aDfTV_!!6000000006698-2-tps-510-507.png)
 
 公告页面
+
 ![](https://img.alicdn.com/imgextra/i3/O1CN01yG4GLx1lxNWswkPUX_!!6000000004885-2-tps-502-289.png)
 
 日程页面
+
 ![](https://img.alicdn.com/imgextra/i2/O1CN01hDcNMv1JEfcom6mZ2_!!6000000000997-2-tps-501-337.png)
 
 群互动卡片
+
 ![](https://img.alicdn.com/imgextra/i2/O1CN01xTaEKL25pOwqRYIDt_!!6000000007575-2-tps-591-493.png)
 
 群入口应用
+
 ![](https://img.alicdn.com/imgextra/i1/O1CN01AxV7kT1z8uVeoIwIh_!!6000000006670-2-tps-600-368.png)
 
 ### **参考文档**
