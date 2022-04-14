@@ -63,8 +63,9 @@ public class CoolAppBotMsgController {
                 System.out.println("校验通过");
                 JSONObject paramJSONObject = JSON.parseObject(paramStr, JSONObject.class);
                 String conversationId = paramJSONObject.getString("conversationId");
+                String conversationTitle = paramJSONObject.getString("conversationTitle");
                 String robotCode = paramJSONObject.getString("robotCode");
-                appConfig.setConversationId(conversationId);
+                appConfig.putConversation(conversationId, conversationTitle);
                 appConfig.setRobotCode(robotCode);
                 // 接收消息内容
                 JSONObject textJSONObjcet = paramJSONObject.getJSONObject("text");

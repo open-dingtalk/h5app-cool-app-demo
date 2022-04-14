@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -69,5 +70,14 @@ public class LoginController {
     @RequestMapping(value = "/getCorpId", method = RequestMethod.GET)
     public String getCorpId() {
         return appConfig.getCorpId();
+    }
+
+    /**
+     * 获取conversationIdList
+     * @return
+     */
+    @RequestMapping(value = "/getConversationIdMap", method = RequestMethod.GET)
+    public Map<String, String> getConversationIdMap() {
+        return appConfig.getConversationIdMap();
     }
 }

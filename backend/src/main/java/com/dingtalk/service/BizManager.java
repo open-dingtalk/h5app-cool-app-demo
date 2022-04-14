@@ -66,7 +66,7 @@ public class BizManager {
      * bot发送互动卡片消息
      * @return
      */
-    public void sendCard(String cardData, String callbackUrl, String cardTemplateId) throws Exception {
+    public void sendCard(String cardData, String callbackUrl, String cardTemplateId, String conversationId) throws Exception {
         // 根据content的内容进行不同的回复，此处省略
         Client client = createClient();
         SendTemplateInteractiveCardHeaders sendTemplateInteractiveCardHeaders = new SendTemplateInteractiveCardHeaders();
@@ -74,7 +74,7 @@ public class BizManager {
         sendTemplateInteractiveCardHeaders.xAcsDingtalkAccessToken = tokenManager.getAccessToken(appConfig.getAppKey(), appConfig.getAppSecret());
         SendTemplateInteractiveCardRequest sendTemplateInteractiveCardRequest = new SendTemplateInteractiveCardRequest()
                 .setCardTemplateId(cardTemplateId)
-                .setOpenConversationId(appConfig.getConversationId())
+                .setOpenConversationId(conversationId)
                 .setOutTrackId(UUID.randomUUID().toString())
                 .setRobotCode(appConfig.getRobotCode())
                 .setCallbackUrl(callbackUrl)

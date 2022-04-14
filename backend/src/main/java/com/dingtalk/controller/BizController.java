@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +31,12 @@ public class BizController {
         JSONObject paramObject = JSON.parseObject(paramStr);
         String title = paramObject.getString("title");
         String content = paramObject.getString("content");
+        String conversationId = paramObject.getString("cid");
+        //解码
+        String cid = URLDecoder.decode(conversationId, "UTF-8");
+        System.out.println("cid: " + cid);
         String cardData = conAnnouncementCardData(title, content);
-        bizManager.sendCard(cardData, null, "TuWenCard01");
+//        bizManager.sendCard(cardData, null, "TuWenCard01", conversationId);
         return RpcServiceResult.getSuccessResult(null);
     }
 
@@ -42,8 +47,12 @@ public class BizController {
         String title = paramObject.getString("title");
         String date = paramObject.getString("date");
         String address = paramObject.getString("address");
+        String conversationId = paramObject.getString("cid");
+        //解码
+        String cid = URLDecoder.decode(conversationId, "UTF-8");
+        System.out.println("cid: " + cid);
         String cardData = conScheduleCardData(title, date, address);
-        bizManager.sendCard(cardData, null, "TuWenCard02");
+//        bizManager.sendCard(cardData, null, "TuWenCard02", conversationId);
         return RpcServiceResult.getSuccessResult(null);
     }
 

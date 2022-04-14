@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react"
-import {Form, Input, Button, message} from "antd"
+import {Form, Input, Button, message, Select} from "antd"
 import React from "react"
 import {NavLink} from 'react-router-dom'
 import '../App.css'
@@ -7,15 +7,19 @@ import "antd/dist/antd.min.css"
 import axios from "axios";
 
 const Announcement = (props) => {
+    const { Option } = Select;
     const [form] = Form.useForm()
     const [cid, setCid] = useState('');
+    const [cidOption, setCidOption] = useState('');
+    const [conArr, setConArr] = useState([]);
+
     const initValue = {
         title: "公告标题",
         content: "公告内容",
     }
 
     const onSubmit = (data) => {
-        data.cid = cid;
+        data.cid = cid !== '' ? cid : cidOption;
         console.log("======= pushAnnouncement =======")
         axios.post( "/biz/pushAnnouncement", data).then(res => {
         }).catch(error => {
@@ -23,17 +27,36 @@ const Announcement = (props) => {
         })
     }
 
+    const selectCid = (value) => {
+        let cid = encodeURIComponent(value);
+        setCidOption(cid);
+    }
+
     useEffect(()=>{
-        let hash = window.location.hash
+        const hash = window.location.hash
+        let showGroup = true;
         if(hash){
             let indexOf = hash.indexOf("/");
             let str = hash.substr(indexOf + 1);
             let index = str.indexOf("/");
             if(index > 0){
                 let cid = str.substr(index + 1);
-                message.info("cid : " + cid);
                 setCid(cid);
+                showGroup = false;
             }
+        }
+        if(showGroup){
+            axios.get("/getConversationIdMap").then(res => {
+                const conversationIdMap = res.data;
+                let arr = [];
+                Object.keys(conversationIdMap).map((item, i) => {
+                    let obj = {label: conversationIdMap[item], value:item};
+                    arr.push(obj);
+                })
+                setConArr(arr);
+            }).catch(error => {
+                alert("getConversationIdMap err, " + JSON.stringify(error))
+            })
         }
     },[])
 
@@ -56,6 +79,11 @@ const Announcement = (props) => {
                     <Form.Item label="公告内容" name="content">
                         <Input placeholder="请输入公告内容"/>
                     </Form.Item>
+                    {(cid === '' && conArr.length > 0) && (
+                        <Form.Item label="选择群组" name="cid">
+                        <Select options={conArr} onSelect={selectCid}/>
+                        </Form.Item>
+                    )}
                     <Button htmlType="submit" type="primary">
                         提交
                     </Button>

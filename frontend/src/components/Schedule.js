@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react"
-import { Form, Input, Button, message } from "antd"
+import { Form, Input, Button, message, Select} from "antd"
 import React from "react"
 import { DatePicker } from "antd-mobile"
 import moment from "moment"
@@ -11,12 +11,15 @@ import * as dd from "dingtalk-jsapi"
 
 const Schedule = (props) => {
     const { TextArea } = Input;
+    const { Option } = Select;
     const [form] = Form.useForm();
     const [pickerV, setPickerV] = useState(false);
     const [users, setUsers] = useState([]);
     const [departments, setDepartments] = useState([]);
     const [sign, setSign] = useState({});
     const [cid, setCid] = useState('');
+    const [cidOption, setCidOption] = useState('');
+    const [conArr, setConArr] = useState([]);
 
     const initValue = {
         title: "日程主题",
@@ -34,13 +37,14 @@ const Schedule = (props) => {
 
     const syncSchedule = (data) => {
         const { title, scheduleTime, address} = data
+        let id = cid !== '' ? cid : cidOption;
         axios.post("/biz/syncSchedule", {
             title:title,
             date:scheduleTime,
             address:address,
             users:users,
             departments:departments,
-            cid:cid
+            cid:id
         }).then(res => {
         }).catch(error => {
             alert("syncSchedule err, " + JSON.stringify(error))
@@ -66,18 +70,6 @@ const Schedule = (props) => {
         })
     }
 
-    const config = () => {
-        let url = window.location.href;
-        message.info("url: " + url);
-        axios.post("/sign?url=" + url
-        ).then(res => {
-            setSign(res.data);
-            ddConfig(res.data);
-        }).catch(error => {
-            alert("sign err, " + JSON.stringify(error))
-        })
-    }
-
     const ddConfig = (data) => {
         dd.config({
             agentId: data.agentId, // 必填，微应用ID
@@ -95,20 +87,25 @@ const Schedule = (props) => {
         })
     }
 
+    const selectCid = (value) => {
+        let cid = encodeURIComponent(value);
+        setCidOption(cid);
+    }
+
     useEffect(()=>{
         let hash = window.location.hash
+        let showGroup = true;
         if(hash){
             let indexOf = hash.indexOf("/");
             let str = hash.substr(indexOf + 1);
             let index = str.indexOf("/");
             if(index > 0) {
                 let cid = str.substr(index + 1);
-                message.info("cid : " + cid);
                 setCid(cid);
+                showGroup = false;
             }
         };
         let href = window.location.href;
-        message.info("href: " + href);
         axios.post("/sign?url=" + href
         ).then(res => {
             setSign(res.data);
@@ -116,6 +113,19 @@ const Schedule = (props) => {
         }).catch(error => {
             alert("sign err, " + JSON.stringify(error))
         })
+        if(showGroup){
+            axios.get("/getConversationIdMap").then(res => {
+                const conversationIdMap = res.data;
+                let arr = [];
+                Object.keys(conversationIdMap).map((item, i) => {
+                    let obj = {label: conversationIdMap[item], value:item};
+                    arr.push(obj);
+                })
+                setConArr(arr);
+            }).catch(error => {
+                alert("getConversationIdMap err, " + JSON.stringify(error))
+            })
+        }
     },[])
 
 
@@ -174,8 +184,11 @@ const Schedule = (props) => {
                             选择组织人员
                         </Button>
                     </Form.Item>
-
-
+                    {(cid === '' && conArr.length > 0) && (
+                        <Form.Item label="选择群组" name="cid">
+                            <Select options={conArr} onSelect={selectCid}/>
+                        </Form.Item>
+                    )}
                     <Form.Item label="日程时间" name="scheduleTime">
                         <DatePicker
                             visible={pickerV}
