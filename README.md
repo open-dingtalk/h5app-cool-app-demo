@@ -37,7 +37,9 @@
 ![image-20210706172027870](https://img.alicdn.com/imgextra/i3/O1CN016WCr6428wDdBhkWi6_!!6000000007996-2-tps-1358-571.png)
 
 酷应用相关配置：（必要步骤）
+
 在以下配置中，我们需要使用此应用的首页地址，应用首页地址配置参考文档：https://developers.dingtalk.com/document/app/configure-orgapp
+
 接下来以首页地址为："http://dingtalkcool.vaiwan.cn"进行举例
 1. 配置群机器人，参考文档：https://open.dingtalk.com/document/org/configure-push-settings
    图标和名称可自行定义，消息接收地址参考下方
