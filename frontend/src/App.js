@@ -4,8 +4,6 @@ import './App.css'
 import "antd/dist/antd.min.css"
 import { Button, message, Carousel, Timeline} from "antd"
 import * as dd from "dingtalk-jsapi"
-import Announcement from "./components/Announcement"
-import Schedule from "./components/Schedule"
 import {NavLink} from 'react-router-dom'
 
 class App extends React.Component {
@@ -25,19 +23,7 @@ class App extends React.Component {
         }
     }
 
-    constructorContentStyle(url) {
-        const contentStyle = {
-            height: '160px',
-            color: '#fff',
-            lineHeight: '160px',
-            textAlign: 'center',
-            background: '#364d79',
-            backgroundImage: 'url(' + url + ')'
-        }
-        return contentStyle;
-    }
-
-    getLog() {
+    componentDidMount() {
         setInterval(async ()=>{
             axios.get(this.state.domain + "/getLog")
                 .then(res => {
@@ -50,11 +36,27 @@ class App extends React.Component {
                 }).catch(error => {
                 alert("getLog err, " + JSON.stringify(error))
             })
-        },10000)
+        },5000)
     }
 
+    constructorContentStyle(url) {
+        const contentStyle = {
+            height: '160px',
+            color: '#fff',
+            lineHeight: '160px',
+            textAlign: 'center',
+            background: '#364d79',
+            backgroundImage: 'url(' + url + ')'
+        }
+        return contentStyle;
+    }
+
+    // getLog() {
+    //
+    // }
+
     render() {
-        this.getLog();
+        // this.getLog();
         if (this.state.userId === '') {
             // 免登操作
             this.login();
