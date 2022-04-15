@@ -79,8 +79,11 @@ dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fdingtalkcool.vaiwan.cn%2F%2
    - ![](https://img.alicdn.com/imgextra/i3/O1CN01Lz3wjC1aFRlgZo0fW_!!6000000003300-2-tps-1005-536.png)
 
    以上链接的配置原理，请查看群相关跳转协议，参考文档：https://open.dingtalk.com/document/org/group-related-redirection-protocol
+   
 3. 启动群应用，参考文档：：https://open.dingtalk.com/document/org/install-group-applications
+
 4. 在群内添加应用入口后启动应用，然后@机器人一次，完成初始化。
+
 
 ## 脚本启动（推荐）
 
