@@ -52,7 +52,7 @@
 
    此应用需配置两个群入口：小酷公告、小酷日程。头像和名称可自行定义，链接配置请参考下方
    
-   小酷公告：
+小酷公告：
 ```shell
 - 移动端地址：
 dingtalk://dingtalkclient/action/im_open_hybrid_panel?panelHeight=percent60&hybridType=online&pageUrl={URL编码后的首页地址}%2F%23%2FAnnouncement%2F$DOUBLE_ENCCID$
@@ -64,7 +64,7 @@ dingtalk://dingtalkclient/page/link?url={URL编码后的首页地址}%2F%23%2FAn
 dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fdingtalkcool.vaiwan.cn%2F%23%2FAnnouncement%2F$DOUBLE_ENCCID$&pc_slide=true
 ```
 
-   小酷日程：
+小酷日程：
 ```shell
 - 移动端地址：
 dingtalk://dingtalkclient/action/im_open_hybrid_panel?panelHeight=percent60&hybridType=online&pageUrl={URL编码后的首页地址}%2F%23%2FSchedule%2F$DOUBLE_ENCCID$
