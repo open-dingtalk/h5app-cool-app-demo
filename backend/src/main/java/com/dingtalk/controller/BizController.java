@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 主业务Controller，编写你的代码
@@ -63,12 +64,14 @@ public class BizController {
         JSONArray users = paramObject.getJSONArray("users");
         JSONArray departments = paramObject.getJSONArray("departments");
         List<Map> userList = new ArrayList<>();
+        List<String> userNameList = new ArrayList<>();
         for (Object user : users){
             JSONObject userObj = (JSONObject) JSON.toJSON(user);
             Map<String, String> option = new HashMap<>();
             option.put("nickName", userObj.getString("name"));
             option.put("userId", userObj.getString("emplId"));
             userList.add(option);
+            userNameList.add(userObj.getString("name"));
         }
         System.out.println("userList : " + JSON.toJSONString(userList));
         //解码
@@ -77,14 +80,14 @@ public class BizController {
         if(!appConfig.isCardRegister()){
             String s = bizManager.cardRegister(domain);
         }
-        String cardData = conScheduleCardData(title, date, address);
+        String cardData = conScheduleCardData(title, date, address, userNameList);
         bizManager.sendCard(cardData, null, "TuWenCard02", cid, JSON.toJSONString(userList));
         return RpcServiceResult.getSuccessResult(null);
     }
 
-    private String conScheduleCardData(String title, String date, String address){
+    private String conScheduleCardData(String title, String date, String address, List<String> userNameList){
         // 轻量级互动卡片消息，参考文档：https://open.dingtalk.com/document/group/lightweight-access-document-of-interactive-cards
-        String templateCard = "{\"header\":{\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i2/O1CN01s9affE1erEufIzQpl_!!6000000003924-2-tps-20-20.png\",\"dark\":\"https://img.alicdn.com/imgextra/i2/O1CN01s9affE1erEufIzQpl_!!6000000003924-2-tps-20-20.png\"},\"text\":{\"zh_Hans\":\"日程\"},\"color\":{\"light\":\"#00B853\",\"dark\":\"#00B853\"}},\"contents\":[{\"text\":{\"zh_Hans\":\"\"},\"type\":\"TITLE\"},{\"text\":{\"zh_Hans\":\"\"},\"type\":\"PARAGRAPH\",\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i4/O1CN01fqHCiZ1gJvKmWLO1o_!!6000000004122-2-tps-20-20.png\",\"dark\":\"https://img.alicdn.com/imgextra/i4/O1CN01fqHCiZ1gJvKmWLO1o_!!6000000004122-2-tps-20-20.png\"}},{\"text\":{\"zh_Hans\":\"\"},\"type\":\"PARAGRAPH\",\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i3/O1CN01nRFcgA1FtCCpnxuAd_!!6000000000544-2-tps-20-20.png\",\"dark\":\"https://img.alicdn.com/imgextra/i3/O1CN01nRFcgA1FtCCpnxuAd_!!6000000000544-2-tps-20-20.png\"}}],\"actions\":[{\"id\":\"1\",\"text\":{\"zh_Hans\":\"参加\"},\"afterClickText\":{\"zh_Hans\":\"已参加\"},\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i4/O1CN01LsnTCi1DM6M9RH0bL_!!6000000000201-2-tps-21-20.png\"},\"status\":\"NORMAL\",\"actionType\":\"LWP\"},{\"id\":\"2\",\"text\":{\"zh_Hans\":\"拒绝\"},\"afterClickText\":{\"zh_Hans\":\"已拒绝\"},\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i3/O1CN01v0i8RN1QjXdSs5Crr_!!6000000002012-2-tps-20-20.png\"},\"status\":\"NORMAL\",\"actionType\":\"LWP\"}],\"actionDirection\":\"HORIZONTAL\"}";
+        String templateCard = "{\"header\":{\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i2/O1CN01s9affE1erEufIzQpl_!!6000000003924-2-tps-20-20.png\",\"dark\":\"https://img.alicdn.com/imgextra/i2/O1CN01s9affE1erEufIzQpl_!!6000000003924-2-tps-20-20.png\"},\"text\":{\"zh_Hans\":\"日程\"},\"color\":{\"light\":\"#00B853\",\"dark\":\"#00B853\"}},\"contents\":[{\"text\":{\"zh_Hans\":\"\"},\"type\":\"TITLE\"},{\"text\":{\"zh_Hans\":\"\"},\"type\":\"PARAGRAPH\",\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i4/O1CN01fqHCiZ1gJvKmWLO1o_!!6000000004122-2-tps-20-20.png\",\"dark\":\"https://img.alicdn.com/imgextra/i4/O1CN01fqHCiZ1gJvKmWLO1o_!!6000000004122-2-tps-20-20.png\"}},{\"text\":{\"zh_Hans\":\"\"},\"type\":\"PARAGRAPH\",\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i3/O1CN01nRFcgA1FtCCpnxuAd_!!6000000000544-2-tps-20-20.png\",\"dark\":\"https://img.alicdn.com/imgextra/i3/O1CN01nRFcgA1FtCCpnxuAd_!!6000000000544-2-tps-20-20.png\"}},{\"text\":{\"zh_Hans\":\"参与人：\"},\"type\":\"PARAGRAPH\"}],\"actions\":[{\"id\":\"1\",\"text\":{\"zh_Hans\":\"参加\"},\"afterClickText\":{\"zh_Hans\":\"已参加\"},\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i4/O1CN01LsnTCi1DM6M9RH0bL_!!6000000000201-2-tps-21-20.png\"},\"status\":\"NORMAL\",\"actionType\":\"LWP\"},{\"id\":\"2\",\"text\":{\"zh_Hans\":\"拒绝\"},\"afterClickText\":{\"zh_Hans\":\"已拒绝\"},\"icon\":{\"light\":\"https://img.alicdn.com/imgextra/i3/O1CN01v0i8RN1QjXdSs5Crr_!!6000000002012-2-tps-20-20.png\"},\"status\":\"NORMAL\",\"actionType\":\"LWP\"}],\"actionDirection\":\"HORIZONTAL\"}";
         JSONObject templateObject = JSON.parseObject(templateCard);
         JSONArray contents = templateObject.getJSONArray("contents");
         JSONObject contentObject = contents.getJSONObject(0);
@@ -96,6 +99,11 @@ public class BizController {
         JSONObject contentObject2 = contents.getJSONObject(2);
         JSONObject contentText2 = contentObject2.getJSONObject("text");
         contentText2.put("zh_Hans", address);
+        if(!userNameList.isEmpty()){
+            JSONObject contentObject3 = contents.getJSONObject(3);
+            JSONObject contentText3 = contentObject3.getJSONObject("text");
+            contentText3.put("zh_Hans", contentText3.getString("zh_Hans") + String.join(",", userNameList));
+        }
         System.out.println(templateObject.toJSONString());
         return templateObject.toJSONString();
     }
