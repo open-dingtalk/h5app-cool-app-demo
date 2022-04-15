@@ -37,13 +37,30 @@
 ![image-20210706172027870](https://img.alicdn.com/imgextra/i3/O1CN016WCr6428wDdBhkWi6_!!6000000007996-2-tps-1358-571.png)
 
 酷应用相关配置：（必要步骤）
-1. 配置群机器人：https://open.dingtalk.com/document/org/configure-push-settings
+在以下配置中，我们需要使用此应用的首页地址，应用首页地址配置参考文档：https://developers.dingtalk.com/document/app/configure-orgapp
+接下来以首页地址为："http://dingtalkcool.vaiwan.cn"进行举例
+1. 配置群机器人，参考文档：https://open.dingtalk.com/document/org/configure-push-settings
+   图标和名称可自行定义，消息接收地址参考下方
+   - 格式：应用首页地址 + /coolappbot/msg
+   - 示例：http://dingtalkcool.vaiwan.cn/coolappbot/msg
    - ![](https://img.alicdn.com/imgextra/i2/O1CN01MG0GBf1fbxJHpo96o_!!6000000004026-2-tps-988-593.png)
-2. 配置群应用和群入口：https://open.dingtalk.com/document/org/configure-the-basic-information-of-the-group-application
+2. 配置群应用和群入口，参考文档：https://open.dingtalk.com/document/org/configure-the-basic-information-of-the-group-application
+   此应用需配置两个群入口：小酷公告、小酷日程。头像和名称可自行定义，链接配置请参考下方
+   小酷公告：
+      - 移动端地址：dingtalk://dingtalkclient/action/im_open_hybrid_panel?panelHeight=percent60&hybridType=online&pageUrl={URL编码后的首页地址}%2F%23%2FAnnouncement%2F$DOUBLE_ENCCID$
+         - 示例：dingtalk://dingtalkclient/action/im_open_hybrid_panel?panelHeight=percent60&hybridType=online&pageUrl=http%3A%2F%2Fdingtalkcool.vaiwan.cn%2F%23%2FAnnouncement%2F$DOUBLE_ENCCID$
+      - 桌面端地址：dingtalk://dingtalkclient/page/link?url={URL编码后的首页地址}%2F%23%2FAnnouncement%2F$DOUBLE_ENCCID$&pc_slide=true
+         - 示例：dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fdingtalkcool.vaiwan.cn%2F%23%2FAnnouncement%2F$DOUBLE_ENCCID$&pc_slide=true
+   小酷日程：
+      - 移动端地址：dingtalk://dingtalkclient/action/im_open_hybrid_panel?panelHeight=percent60&hybridType=online&pageUrl={URL编码后的首页地址}%2F%23%2FSchedule%2F$DOUBLE_ENCCID$
+         - 示例：dingtalk://dingtalkclient/action/im_open_hybrid_panel?panelHeight=percent60&hybridType=online&pageUrl=http%3A%2F%2Fdingtalkcool.vaiwan.cn%2F%23%2FSchedule%2F$DOUBLE_ENCCID$
+      - 桌面端地址：dingtalk://dingtalkclient/page/link?url={URL编码后的首页地址}%2F%23%2FSchedule%2F$DOUBLE_ENCCID$&pc_slide=true
+         - 示例：dingtalk://dingtalkclient/page/link?url=http%3A%2F%2Fdingtalkcool.vaiwan.cn%2F%23%2FSchedule%2F$DOUBLE_ENCCID$&pc_slide=true
    - ![](https://img.alicdn.com/imgextra/i4/O1CN01DXlDeL1ZBx81BluOv_!!6000000003157-2-tps-1013-610.png)
    - ![](https://img.alicdn.com/imgextra/i3/O1CN01Lz3wjC1aFRlgZo0fW_!!6000000003300-2-tps-1005-536.png)
-3. 启动群应用：https://open.dingtalk.com/document/org/install-group-applications
-
+   以上链接的配置原理，请查看群相关跳转协议，参考文档：https://open.dingtalk.com/document/org/group-related-redirection-protocol
+3. 启动群应用，参考文档：：https://open.dingtalk.com/document/org/install-group-applications
+4. 在群内添加应用入口后启动应用，然后@机器人一次，完成初始化。
 
 ## 脚本启动（推荐）
 
